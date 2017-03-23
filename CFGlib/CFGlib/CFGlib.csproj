@@ -62,6 +62,7 @@
     <Compile Include="CFGEdge.cs" />
     <Compile Include="CFGNode.cs" />
     <Compile Include="ControlFlowGraph.cs" />
+    <Compile Include="CFGCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

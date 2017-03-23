@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CFGlib;
+using dnlib.DotNet.Emit;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -14,11 +16,27 @@ namespace CFGlib
             get; set;
         }
 
+        public Instruction Footer
+        {
+            get; set;
+        }
 
+        public Instruction Header
+        {
+            get; set;
+        }
 
-        public CFGNode ( int id )
+        public ControlFlowBlockType Type
+        {
+            get; set;
+        }
+
+        public CFGNode ( int id, Instruction footer, Instruction header, ControlFlowBlockType type )
         {
             Id = id;
+            Footer = footer;
+            Header = header;
+            Type = type;
         }
 
 
