@@ -64,6 +64,8 @@
     <Compile Include="ControlFlowGraph.cs" />
     <Compile Include="CFGCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoftMutableBidirectionalGraph.cs" />
+    <Compile Include="ISoftMutableGraph.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

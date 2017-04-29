@@ -57,6 +57,8 @@ namespace CFGlib
 
                 //// Type-on belül methodok ////
 
+                //type.Methods.Where(m => m.Name == functionName).FirstOrDefault();
+
                 foreach (var method in type.Methods)
                 {
 
@@ -77,7 +79,7 @@ namespace CFGlib
 
                         foreach (var block in graph.GetAllBlocks())
                         {
-                            nodes.Add(new CFGNode(block.Id, block.Footer, block.Header, block.Type));
+                            nodes.Add(new CFGNode(block.Id, block.Footer, block.Header, block.Type, block.Footer.Offset));
 
                         }
 
@@ -89,23 +91,20 @@ namespace CFGlib
 
                             foreach (var item in block.Sources)
                             {
-                                Console.WriteLine("SOURCES");
 
-                                Console.WriteLine(item);
                             }
 
                             // Az adott blokk forrás blokkja
 
                             foreach (var source in block.Sources)
                             {
-                                Console.WriteLine("Source: " + source.Id);
+
                             }
 
                             // Az adott blokk cél blokkja
                             // itt hozunk létre élt 
                             foreach (var target in block.Targets)
                             {
-                                Console.WriteLine("Target: " + target.Id);
                                 var tempEdge = new CFGEdge(edgeId, nodes.Where(x => x.Id == block.Id).FirstOrDefault(), nodes.Where(x => x.Id == target.Id).FirstOrDefault());
                                 edgeId++;
                                 edges.Add(tempEdge);
