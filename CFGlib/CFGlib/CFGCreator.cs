@@ -79,7 +79,7 @@ namespace CFGlib
 
                         foreach (var block in graph.GetAllBlocks())
                         {
-                            nodes.Add(new CFGNode(block.Id, block.Footer, block.Header, block.Type, block.Footer.Offset));
+                            nodes.Add(new CFGNode(block.Id, block.Footer, block.Header, block.Type, block.Footer.Offset, false));
 
                         }
 

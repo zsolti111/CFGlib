@@ -60,6 +60,42 @@ namespace CFGlib
             None
         }
 
+        [Browsable(false)]
+        [ReadOnly(true)]
+        public NodeColor Color
+        {
+            get; set;
+        }
+
+        [Category("Node details")]
+        [DisplayName("Generated test code")]
+        [Description("The generated source code if it is a leaf node and a test was generated (e.g., not a duplicate).")]
+        [ReadOnly(true)]
+        [XmlAttribute("gtc")]
+        public string GenerateTestCode
+        {
+            get; set;
+        }
+
+        [Category("Node details")]
+        [DisplayName("Node status")]
+        [Description("Status of the node indicating whether there are remaining uncovered branches starting from this node.")]
+        [ReadOnly(true)]
+        [XmlAttribute("status")]
+        public string Status
+        {
+            get; set;
+        }
+
+        [Category("Node details")]
+        [DisplayName("Execution runs")]
+        [Description("The list of executions that this node was involved in.")]
+        [ReadOnly(true)]
+        [XmlAttribute("runs")]
+        public string Runs
+        {
+            get; set;
+        }
 
         [Category("Node details")]
         [DisplayName("Method name")]
@@ -101,13 +137,39 @@ namespace CFGlib
             get; set;
         }
 
-        public CFGNode ( int id, Instruction footer, Instruction header, ControlFlowBlockType type, uint iLOffset )
+        [Category("Node details")]
+        [DisplayName("Source code mapping")]
+        [Description("Aprroximation of the place in the source code.")]
+        [ReadOnly(true)]
+        [XmlAttribute("scm")]
+        public string SourceCodeMappingString
+        {
+            get; set;
+        }
+
+        [Category("Node appearance")]
+        [DisplayName("Border (source mapping)")]
+        [Description("Border of the node determines if the node has exact source code location mapping. If yes, the border is doubled, otherwise the border is single.")]
+        [ReadOnly(true)]
+        public NodeBorder Border
+        {
+            get; set;
+        }
+        public CFGNode ( int id, Instruction footer, Instruction header, ControlFlowBlockType type, uint iLOffset, bool solverCall )
         {
             Id = id;
             Footer = footer;
             Header = header;
             Type = type;
             ILOffset = iLOffset;
+            Shape = ( solverCall ) ? NodeShape.Ellipse : NodeShape.Rectangle;
+        }
+
+        public CFGNode ( int id, bool solverCall )
+        {
+            Id = id;
+            Shape = ( solverCall ) ? NodeShape.Ellipse : NodeShape.Rectangle;
+
         }
 
 

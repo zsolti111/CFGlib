@@ -8,8 +8,18 @@ namespace CFGlib
 {
     public class CFGEdge : Edge<CFGNode>
     {
-
+        public enum EdgeColor
+        {
+            Black,
+            Red,
+            Green
+        }
         public int Id
+        {
+            get; set;
+        }
+
+        public EdgeColor Color
         {
             get; set;
         }
@@ -20,6 +30,7 @@ namespace CFGlib
             Id = id;
 
         }
+
 
     }
 
