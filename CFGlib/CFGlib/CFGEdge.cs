@@ -31,6 +31,11 @@ namespace CFGlib
 
         }
 
+        public static CFGEdge Factory ( CFGNode source, CFGNode target, string id )
+        {
+            return new CFGEdge(Int32.Parse(id), source, target);
+        }
+
 
     }
 

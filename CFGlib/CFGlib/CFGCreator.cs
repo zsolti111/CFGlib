@@ -39,6 +39,40 @@ namespace CFGlib
             }
         }
 
+        public static BidirectionalGraph<CFGNode, CFGEdge> Deserialize ( string path )
+        {
+            var deser = new GraphMLDeserializer<CFGNode, CFGEdge, BidirectionalGraph<CFGNode, CFGEdge>>();
+            var graph = new BidirectionalGraph<CFGNode, CFGEdge>();
+            var ivf = new IdentifiableVertexFactory<CFGNode>(CFGNode.Factory);
+            var ief = new IdentifiableEdgeFactory<CFGNode, CFGEdge>(CFGEdge.Factory);
+            using (var reader = XmlReader.Create(path))
+            {
+                deser.Deserialize(reader, graph, ivf, ief);
+            }
+            ReplaceLineBreaks(graph, false);
+            return graph;
+        }
+
+        private static void ReplaceLineBreaks ( BidirectionalGraph<CFGNode, CFGEdge> graph, bool serialize )
+        {
+            if (serialize)
+            {
+                foreach (var v in graph.Vertices)
+                {
+                    v.PathCondition = v.PathCondition.Replace(Environment.NewLine, "[LB]");
+                    v.IncrementalPathCondition = v.IncrementalPathCondition.Replace(Environment.NewLine, "[LB]");
+                }
+            }
+            else
+            {
+                foreach (var v in graph.Vertices)
+                {
+                    v.PathCondition = v.PathCondition.Replace("[LB]", Environment.NewLine);
+                    v.IncrementalPathCondition = v.IncrementalPathCondition.Replace("[LB]", Environment.NewLine);
+                }
+            }
+        }
+
 
 
         public void Create ( string path, string functionName )

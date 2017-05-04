@@ -155,6 +155,50 @@ namespace CFGlib
         {
             get; set;
         }
+
+        private Stack<NodeColor> originalColors = new Stack<NodeColor>();
+
+        public bool IsSelected
+        {
+            get; set;
+        }
+
+        public void Deselect ()
+        {
+            IsSelected = false;
+            RevertToOriginalColor();
+        }
+
+
+        public void RevertToOriginalColor ()
+        {
+            NodeColor o;
+            if (originalColors.Count == 1)
+                o = originalColors.Peek();
+            else
+                o = originalColors.Pop();
+            if (o != Color)
+            {
+                Color = o;
+            }
+        }
+
+        public bool IsCollapsed
+        {
+            get; set;
+        }
+
+        public HashSet<CFGNode> CollapsedSubtreeNodes
+        {
+            get; private set;
+        }
+
+
+        public HashSet<CFGEdge> CollapsedSubtreeEdges
+        {
+            get; private set;
+        }
+
         public CFGNode ( int id, Instruction footer, Instruction header, ControlFlowBlockType type, uint iLOffset, bool solverCall )
         {
             Id = id;
@@ -164,6 +208,7 @@ namespace CFGlib
             ILOffset = iLOffset;
             Shape = ( solverCall ) ? NodeShape.Ellipse : NodeShape.Rectangle;
         }
+
 
         public CFGNode ( int id, bool solverCall )
         {
@@ -176,6 +221,23 @@ namespace CFGlib
         public override string ToString ()
         {
             return Id.ToString();
+        }
+
+        public static CFGNode Factory ( string id )
+        {
+            return new CFGNode(int.Parse(id), false);
+        }
+
+        public void Select ()
+        {
+            IsSelected = true;
+            NodeColor o = originalColors.Peek();
+            //else o = originalColors.Pop();
+            if (o != NodeColor.Blue)
+            {
+                originalColors.Push(Color);
+                Color = NodeColor.Blue;
+            }
         }
 
 
