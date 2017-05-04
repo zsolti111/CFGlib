@@ -63,7 +63,10 @@
     <Compile Include="CFGNode.cs" />
     <Compile Include="ControlFlowGraph.cs" />
     <Compile Include="CFGCreator.cs" />
+    <Compile Include="GraphHideHelper.cs" />
+    <Compile Include="ISoftMutableGraph.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoftMutableBidirectionalGraph.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

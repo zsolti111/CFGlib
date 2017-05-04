@@ -22,27 +22,27 @@ namespace CFGlib
         // Lista melyben az éleket tároljuk
         public static List<CFGEdge> edges = new List<CFGEdge>();
         // gráf
-        public static BidirectionalGraph<CFGNode, CFGEdge> graph = new BidirectionalGraph<CFGNode, CFGEdge>();
+        public static SoftMutableBidirectionalGraph<CFGNode, CFGEdge> graph = new SoftMutableBidirectionalGraph<CFGNode, CFGEdge>();
 
         public static int edgeId = 0;
 
 
 
 
-        public static void Serialize ( BidirectionalGraph<CFGNode, CFGEdge> graph, string path )
+        public static void Serialize ( SoftMutableBidirectionalGraph<CFGNode, CFGEdge> graph, string path )
         {
 
-            var ser = new GraphMLSerializer<CFGNode, CFGEdge, BidirectionalGraph<CFGNode, CFGEdge>>();
+            var ser = new GraphMLSerializer<CFGNode, CFGEdge, SoftMutableBidirectionalGraph<CFGNode, CFGEdge>>();
             using (var writer = XmlWriter.Create(path + "temp.graphml", new XmlWriterSettings { Indent = true, WriteEndDocumentOnClose = false }))
             {
                 ser.Serialize(writer, graph, v => v.Id.ToString(), e => e.Id.ToString());
             }
         }
 
-        public static BidirectionalGraph<CFGNode, CFGEdge> Deserialize ( string path )
+        public static SoftMutableBidirectionalGraph<CFGNode, CFGEdge> Deserialize ( string path )
         {
-            var deser = new GraphMLDeserializer<CFGNode, CFGEdge, BidirectionalGraph<CFGNode, CFGEdge>>();
-            var graph = new BidirectionalGraph<CFGNode, CFGEdge>();
+            var deser = new GraphMLDeserializer<CFGNode, CFGEdge, SoftMutableBidirectionalGraph<CFGNode, CFGEdge>>();
+            var graph = new SoftMutableBidirectionalGraph<CFGNode, CFGEdge>();
             var ivf = new IdentifiableVertexFactory<CFGNode>(CFGNode.Factory);
             var ief = new IdentifiableEdgeFactory<CFGNode, CFGEdge>(CFGEdge.Factory);
             using (var reader = XmlReader.Create(path))
@@ -53,7 +53,7 @@ namespace CFGlib
             return graph;
         }
 
-        private static void ReplaceLineBreaks ( BidirectionalGraph<CFGNode, CFGEdge> graph, bool serialize )
+        private static void ReplaceLineBreaks ( SoftMutableBidirectionalGraph<CFGNode, CFGEdge> graph, bool serialize )
         {
             if (serialize)
             {

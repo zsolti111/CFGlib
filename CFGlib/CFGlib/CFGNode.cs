@@ -240,6 +240,29 @@ namespace CFGlib
             }
         }
 
+        public void Collapse ()
+        {
+            NodeColor o;
+            if (originalColors.Count == 1)
+                o = originalColors.Peek();
+            else
+                o = originalColors.Pop();
+            if (o != NodeColor.Indigo)
+            {
+                originalColors.Push(Color);
+                Color = NodeColor.Indigo;
+            }
+        }
+
+        public void Expand ()
+        {
+            if (IsSelected)
+            {
+                originalColors.Pop();
+            }
+            RevertToOriginalColor();
+        }
+
 
     }
 
